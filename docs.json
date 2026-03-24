@@ -2,19 +2,29 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "AXL Protocol",
-  "logo": { "dark": "/logo/dark.svg", "light": "/logo/light.svg" },
-  "favicon": "/favicon.png",
-  "colors": { "primary": "#00e87b", "light": "#00e87b", "dark": "#00e87b", "background": { "dark": "#030508", "light": "#ffffff" } },
+  "logo": { "dark": "/logo/banner.png", "light": "/logo/banner.png" },
+  "favicon": "/logo/favicon.jpg",
+  "colors": {
+    "primary": "#fbbf24",
+    "light": "#f59e0b",
+    "dark": "#fbbf24",
+    "background": { "dark": "#0a0e14", "light": "#fafafa" },
+    "anchors": { "from": "#fbbf24", "to": "#22d3ee" }
+  },
   "font": { "headings": { "family": "JetBrains Mono", "weight": 700 }, "body": { "family": "Inter" } },
-  "topbarLinks": [{ "name": "Protocol", "url": "https://axlprotocol.org" }],
-  "topbarCtaButton": { "name": "Get Started", "url": "/overview/quickstart" },
+  "topbarLinks": [
+    { "name": "Protocol", "url": "https://axlprotocol.org" },
+    { "name": "Rosetta", "url": "https://axlprotocol.org/rosetta" }
+  ],
+  "topbarCtaButton": { "name": "GitHub", "url": "https://github.com/axlprotocol", "style": "roundedRectangle" },
   "tabs": [
     { "name": "Developer Guide", "url": "guide" },
     { "name": "Experiments", "url": "experiments" }
   ],
   "anchors": [
     { "name": "GitHub", "icon": "github", "url": "https://github.com/axlprotocol" },
-    { "name": "Rosetta (raw)", "icon": "scroll", "url": "https://axlprotocol.org/rosetta" }
+    { "name": "Rosetta (raw)", "icon": "scroll", "url": "https://axlprotocol.org/rosetta" },
+    { "name": "PyPI", "icon": "box", "url": "https://pypi.org/project/axl-core/" }
   ],
   "navigation": [
     { "group": "Getting Started", "pages": ["overview/introduction", "overview/quickstart", "overview/why-axl", "overview/model-entry-points"] },
