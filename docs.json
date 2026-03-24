@@ -2,40 +2,108 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "AXL Protocol",
-  "logo": { "dark": "/logo/banner.png", "light": "/logo/banner.png" },
+  "logo": {
+    "light": "/logo/banner.png",
+    "dark": "/logo/banner.png"
+  },
   "favicon": "/logo/favicon.jpg",
   "colors": {
     "primary": "#fbbf24",
     "light": "#f59e0b",
-    "dark": "#fbbf24",
-    "background": { "dark": "#0a0e14", "light": "#fafafa" },
-    "anchors": { "from": "#fbbf24", "to": "#22d3ee" }
+    "dark": "#fbbf24"
   },
-  "font": { "headings": { "family": "JetBrains Mono", "weight": 700 }, "body": { "family": "Inter" } },
-  "topbarLinks": [
-    { "name": "Protocol", "url": "https://axlprotocol.org" },
-    { "name": "Rosetta", "url": "https://axlprotocol.org/rosetta" }
-  ],
-  "topbarCtaButton": { "name": "GitHub", "url": "https://github.com/axlprotocol", "style": "roundedRectangle" },
-  "tabs": [
-    { "name": "Developer Guide", "url": "guide" },
-    { "name": "Experiments", "url": "experiments" }
-  ],
-  "anchors": [
-    { "name": "GitHub", "icon": "github", "url": "https://github.com/axlprotocol" },
-    { "name": "Rosetta (raw)", "icon": "scroll", "url": "https://axlprotocol.org/rosetta" },
-    { "name": "PyPI", "icon": "box", "url": "https://pypi.org/project/axl-core/" }
-  ],
-  "navigation": [
-    { "group": "Getting Started", "pages": ["overview/introduction", "overview/quickstart", "overview/why-axl", "overview/model-entry-points"] },
-    { "group": "The Language", "pages": ["language/packet-format", "language/seven-operations", "language/six-tags", "language/direction-symbols", "language/encoding-layers", "language/tokenizer-profiles"] },
-    { "group": "Rosetta", "pages": ["rosetta/overview", "rosetta/v22-preamble", "rosetta/canonical-decompression", "rosetta/full-text", "rosetta/changelog"] },
-    { "group": "Products", "pages": ["products/silo", "products/compress", "products/sophon"] },
-    { "group": "Developer Guide", "pages": ["guide/quickstart", "guide/python-library", "guide/cli", "guide/examples"] },
-    { "group": "Experiments", "pages": ["experiments/overview", "experiments/bg001-first-contact", "experiments/bg002-the-thief", "experiments/bg007-medical"] },
-    { "group": "Reference", "pages": ["reference/grammar", "reference/tokenizer-audit", "reference/compression-data", "reference/roadmap"] }
-  ],
-  "footerSocials": { "github": "https://github.com/axlprotocol", "website": "https://axlprotocol.org" },
+  "font": {
+    "headings": { "family": "JetBrains Mono", "weight": 700 },
+    "body": { "family": "Inter" }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["overview/introduction", "overview/quickstart", "overview/why-axl", "overview/model-entry-points"]
+          },
+          {
+            "group": "The Language",
+            "pages": ["language/packet-format", "language/seven-operations", "language/six-tags", "language/direction-symbols", "language/encoding-layers", "language/tokenizer-profiles"]
+          },
+          {
+            "group": "Rosetta",
+            "pages": ["rosetta/overview", "rosetta/v22-preamble", "rosetta/canonical-decompression", "rosetta/full-text", "rosetta/changelog"]
+          },
+          {
+            "group": "Products",
+            "pages": ["products/silo", "products/compress", "products/sophon"]
+          }
+        ]
+      },
+      {
+        "tab": "Developer Guide",
+        "groups": [
+          {
+            "group": "Developer Guide",
+            "pages": ["guide/quickstart", "guide/python-library", "guide/cli", "guide/examples"]
+          }
+        ]
+      },
+      {
+        "tab": "Experiments",
+        "groups": [
+          {
+            "group": "Experiments",
+            "pages": ["experiments/overview", "experiments/bg001-first-contact", "experiments/bg002-the-thief", "experiments/bg007-medical"]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "Reference",
+            "pages": ["reference/grammar", "reference/tokenizer-audit", "reference/compression-data", "reference/roadmap"]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/axlprotocol",
+          "icon": "github"
+        },
+        {
+          "anchor": "Rosetta (raw)",
+          "href": "https://axlprotocol.org/rosetta",
+          "icon": "scroll"
+        },
+        {
+          "anchor": "PyPI",
+          "href": "https://pypi.org/project/axl-core/",
+          "icon": "box"
+        }
+      ]
+    }
+  },
+  "navbar": {
+    "links": [
+      { "label": "Protocol", "href": "https://axlprotocol.org" },
+      { "label": "Rosetta", "href": "https://axlprotocol.org/rosetta" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "GitHub",
+      "href": "https://github.com/axlprotocol"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/axlprotocol",
+      "website": "https://axlprotocol.org"
+    }
+  },
   "feedback": { "thumbsRating": true, "suggestEdit": true },
   "search": { "prompt": "Search AXL Protocol docs..." }
 }
