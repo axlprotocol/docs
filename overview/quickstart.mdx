@@ -1,0 +1,47 @@
+---
+title: "Quickstart"
+description: "Compress your first text in 3 lines. Run your first multi-LLM deliberation in 5 minutes."
+---
+
+## Install
+
+```bash
+pip install axl-core
+```
+
+## Compress Text
+
+```python
+from axl import compress
+
+text = "The Federal Reserve held rates at 5.25%. Markets dropped 0.3%."
+packets = compress(text)
+print(packets)
+```
+
+```
+@axlprotocol.org/rosetta
+ID:FED-01|OBS.99|!rate_hold|@fed.powell|$rate:5.25%|NOW
+ID:MKT-01|OBS.95|$SPY|<-!rate_hold|^-0.3%|NOW
+```
+
+## Parse a Packet
+
+```python
+from axl import parse
+
+pkt = parse("ID:WHL-01|OBS.95|!whale_move|@whale.CW2024|^2400BTC=>exchange|NOW")
+print(pkt.operation)   # OBS
+print(pkt.confidence)  # 0.95
+print(pkt.subject)     # !whale_move
+```
+
+## Run the AXL Silo
+
+```bash
+git clone https://github.com/axlprotocol/axl-silo.git
+cd axl-silo && pip install -r requirements.txt
+python run.py --port 7000
+```
+
+Open `http://localhost:7000`. Mix providers (Anthropic + OpenAI + Google + Local). Pick a seed. Hit ENGAGE. Watch LLMs debate in AXL.

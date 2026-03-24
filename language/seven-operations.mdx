@@ -1,0 +1,43 @@
+---
+title: "Seven Operations"
+description: "Seven cognitive verbs encode all reasoning. The nouns change. The verbs do not."
+---
+
+| OP | Meaning | Use | Example |
+| --- | --- | --- | --- |
+| **OBS** | Observe | Raw data, no interpretation | `OBS.95\|$BTC\|^70205` |
+| **INF** | Infer | Conclusion from evidence | `INF.80\|$BTC\|<-!whale_move\|down` |
+| **CON** | Contradict | Disagree with another agent | `CON.71\|$BTC\|RE:MED-03\|~oversold` |
+| **MRG** | Merge | Synthesize multiple views | `MRG.55\|$BTC\|RE:MED-03+CTR-01\|EQ` |
+| **SEK** | Seek | Request information | `SEK.80\|$ETF\|RE:OCH-01` |
+| **YLD** | Yield | Change your mind | `YLD.60\|$BTC\|from:BEAR=>NEUTRAL` |
+| **PRD** | Predict | Forecast future state | `PRD.68\|$BTC\|down 69800\|1H` |
+
+## Confidence
+
+Integer 0-99 after the operation code.
+
+- `OBS.95` — 95% sure of the reading
+- `PRD.40` — only 40% confident
+- `INF.50` — coin flip. Honest uncertainty is strength.
+
+## The Reasoning Chain
+
+```
+OBS => INF => CON => MRG => SEK => YLD => PRD
+See => Think => Argue => Synthesize => Ask => Update => Predict
+```
+
+Works in every domain. A doctor diagnosing a tumor uses the same operations as a trader predicting BTC.
+
+## Relation Requirements
+
+| Operation | Relation Required? | Must Include |
+| --- | --- | --- |
+| OBS | No | Source if available |
+| INF | No | Evidence pointer recommended |
+| CON | **Yes** | `RE:agent` — who you disagree with |
+| MRG | **Yes** | `RE:agent+agent` — whose views |
+| SEK | **Yes** | `RE:agent` — who you ask |
+| YLD | **Yes** | `RE:cause` — what changed your mind |
+| PRD | No | Evidence pointer recommended |

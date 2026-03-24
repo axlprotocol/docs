@@ -1,0 +1,48 @@
+---
+title: "Developer Quickstart"
+description: "Install axl-core. Compress, parse, validate in under 5 minutes."
+---
+
+## Install
+
+```bash
+pip install axl-core
+```
+
+## Core Functions
+
+```python
+from axl import compress, decompress, parse, validate
+
+# Compress English to AXL
+packets = compress("The patient's CA-125 is 285, 8.1x above normal.")
+
+# Parse a single packet
+pkt = parse("ID:ONC-01|INF.82|#CA125|<-!scan+#8.1x|~malignancy_probable|1W")
+print(pkt.operation)    # INF
+print(pkt.confidence)   # 0.82
+print(pkt.subject)      # #CA125
+
+# Validate a packet
+is_valid = validate("ID:ONC-01|INF.82|#CA125|<-!scan|1W")
+print(is_valid)         # True
+
+# Decompress AXL to English
+english = decompress(packets)
+```
+
+## CLI
+
+```bash
+# Compress a file
+axl compress input.txt > output.axl
+
+# Decompress
+axl decompress output.axl > readable.txt
+
+# Validate packets
+axl validate output.axl
+
+# Parse and pretty-print
+axl parse "ID:WHL-01|OBS.95|$BTC|^70205|NOW"
+```

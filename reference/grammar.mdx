@@ -1,0 +1,66 @@
+---
+title: "EBNF Grammar"
+description: "Formal grammar definition for AXL v2.2 packets."
+---
+
+## Packet Grammar
+
+```ebnf
+packet       = [rosetta_url "|"] identity "|" [timestamp "|"] operation "|" subject
+               ["|" relation] ["|" evidence] ["|" temporal]
+
+rosetta_url  = "@" domain "/" path
+identity     = ("π:" | "ID:") agent_id [":" signature ":" gas]
+timestamp    = "T:" digits
+operation    = op_code "." confidence
+op_code      = "OBS" | "INF" | "CON" | "MRG" | "SEK" | "YLD" | "PRD"
+confidence   = digit digit                          (* 00-99 *)
+
+subject      = tag value
+tag          = "$" | "@" | "#" | "!" | "~" | "^"
+value        = { alphanum | "_" | "." | "-" }
+
+relation     = "RE:" agent_ref { "+" agent_ref }
+             | evidence_ptr
+evidence_ptr = ("←" | "<-") evidence_chain
+evidence     = evidence_chain
+evidence_chain = tagged_value { "+" tagged_value }
+tagged_value = tag value
+
+temporal     = "NOW" | "1H" | "4H" | "1D" | "1W" | "1M" | "HISTORICAL"
+             | digits ("H" | "D" | "W" | "M")
+
+direction    = "↑" | "↓" | "→" | "←"               (* legacy *)
+             | "up" | "down" | "EQ" | "=>" | "<-"   (* ascii *)
+
+agent_id     = { alphanum | "_" | "-" }
+agent_ref    = agent_id
+digits       = digit { digit }
+digit        = "0" | "1" | ... | "9"
+alphanum     = letter | digit
+```
+
+## Manifest Grammar (v2.2)
+
+```ebnf
+manifest     = "OBS.99" "|" manifest_subject "|" agent_ref "|" manifest_payload "|" temporal
+
+manifest_subject = "@m.PROFILE"
+                 | "@m.AUDIENCE"
+                 | "@m.ONTOLOGY." name
+                 | "@m.BUNDLE." name
+
+manifest_payload = kv_pair { "+" kv_pair }
+kv_pair      = "^" key ":" value
+key          = { alphanum | "_" | "." }
+```
+
+## Validation Rules
+
+1. Every packet is exactly one line
+2. Fields are pipe-delimited, position defines meaning
+3. OP.CONF is always required (position 4 after identity and optional timestamp)
+4. CON, MRG, SEK, YLD require a RELATION field with RE:
+5. Subject must start with one of: $ @ # ! ~ ^
+6. Confidence is integer 00-99
+7. Under 40 words per packet

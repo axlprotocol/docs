@@ -1,122 +1,30 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
-  },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
-  }
+  "name": "AXL Protocol",
+  "logo": { "dark": "/logo/dark.svg", "light": "/logo/light.svg" },
+  "favicon": "/favicon.png",
+  "colors": { "primary": "#00e87b", "light": "#00e87b", "dark": "#00e87b", "background": { "dark": "#030508", "light": "#ffffff" } },
+  "font": { "headings": { "family": "JetBrains Mono", "weight": 700 }, "body": { "family": "Inter" } },
+  "topbarLinks": [{ "name": "Protocol", "url": "https://axlprotocol.org" }],
+  "topbarCtaButton": { "name": "Get Started", "url": "/overview/quickstart" },
+  "tabs": [
+    { "name": "Developer Guide", "url": "guide" },
+    { "name": "Experiments", "url": "experiments" }
+  ],
+  "anchors": [
+    { "name": "GitHub", "icon": "github", "url": "https://github.com/axlprotocol" },
+    { "name": "Rosetta (raw)", "icon": "scroll", "url": "https://axlprotocol.org/rosetta" }
+  ],
+  "navigation": [
+    { "group": "Getting Started", "pages": ["overview/introduction", "overview/quickstart", "overview/why-axl", "overview/model-entry-points"] },
+    { "group": "The Language", "pages": ["language/packet-format", "language/seven-operations", "language/six-tags", "language/direction-symbols", "language/encoding-layers", "language/tokenizer-profiles"] },
+    { "group": "Rosetta", "pages": ["rosetta/overview", "rosetta/v22-preamble", "rosetta/canonical-decompression", "rosetta/full-text", "rosetta/changelog"] },
+    { "group": "Products", "pages": ["products/silo", "products/compress", "products/sophon"] },
+    { "group": "Developer Guide", "pages": ["guide/quickstart", "guide/python-library", "guide/cli", "guide/examples"] },
+    { "group": "Experiments", "pages": ["experiments/overview", "experiments/bg001-first-contact", "experiments/bg002-the-thief", "experiments/bg007-medical"] },
+    { "group": "Reference", "pages": ["reference/grammar", "reference/tokenizer-audit", "reference/compression-data", "reference/roadmap"] }
+  ],
+  "footerSocials": { "github": "https://github.com/axlprotocol", "website": "https://axlprotocol.org" },
+  "feedback": { "thumbsRating": true, "suggestEdit": true },
+  "search": { "prompt": "Search AXL Protocol docs..." }
 }

@@ -1,0 +1,28 @@
+---
+title: "Why AXL?"
+description: "How AXL compares to English, JSON, MCP, A2A, and agent frameworks."
+---
+
+## The Problem
+
+Agents communicate through English prose (10x too verbose), JSON blobs (no cognitive semantics), function calls (locked to one provider), or framework protocols (CrewAI can't talk to LangGraph).
+
+None of these are a language. AXL is.
+
+## Comparison
+
+| Feature | English | JSON | MCP | A2A | AXL |
+| --- | --- | --- | --- | --- | --- |
+| Compression | 1x | 0.8x | N/A | N/A | **10x** |
+| Cognitive ops | No | No | No | No | **7 ops** |
+| Typed subjects | No | Schema | Tool-specific | Task-specific | **6 tags** |
+| Confidence | Implied | Not native | Not native | Not native | **Every packet** |
+| Self-bootstrap | No | No | No | No | **One read** |
+| Cross-model | Yes (verbose) | Yes (verbose) | Claude-first | Google-first | **Any model** |
+| Payment native | No | No | No | No | **Built in** |
+
+## Different Layers
+
+MCP is a tool protocol: "Call this function." A2A is a task protocol: "Do this task." AXL is a thought protocol: "I observe X, infer Y, predict Z."
+
+AXL sits below MCP and A2A. An agent can use MCP for tools, A2A for tasks, and AXL for reasoning. They complement, not compete.

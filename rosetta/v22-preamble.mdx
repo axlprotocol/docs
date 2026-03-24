@@ -1,0 +1,63 @@
+---
+title: "v2.2 Preamble Manifests"
+description: "PROFILE, AUDIENCE, ONTOLOGY, BUNDLE — four first-contact manifests."
+---
+
+v2.2 adds four optional manifests before normal packets. They are ordinary OBS packets over reserved `@m.*` subjects. The packet grammar does not change.
+
+Order: PROFILE => AUDIENCE => ONTOLOGY => BUNDLE.
+
+## PROFILE
+
+Declare tokenizer, charset, density, and capabilities.
+
+```
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:neutral+^density:mid+^cap:onto+^cap:bundle|NOW
+```
+
+| Key | Required | Values |
+| --- | --- | --- |
+| `^v` | Yes | `2.2` |
+| `^charset` | Yes | `legacy` or `ascii` |
+| `^tok` | Yes | `cl100k`, `anthropic`, `sp_llama`, `sp_gemini`, `tekken`, `neutral` |
+| `^density` | Yes | `low`, `mid`, `high` |
+| `^cap` | No | Repeatable: `onto`, `bundle`, `decomp` |
+
+## AUDIENCE
+
+Declare intended receiver.
+
+```
+ID:FIN-01|OBS.99|@m.AUDIENCE|@agent.FIN-01|^to:role.trader+^to:cap.flow_parse|NOW
+```
+
+## ONTOLOGY
+
+Declare aliases before use.
+
+```
+ID:ASM-01|OBS.99|@m.ONTOLOGY.swarm|@agent.ASM-01|^def:PLT=platoon+^def:COH=cohort+^map:PLT=tactical+^map:COH=fusion|NOW
+```
+
+After this, `PLT` and `COH` are valid in subsequent packets.
+
+## BUNDLE
+
+Declare claim graph for structured doctrine.
+
+```
+ID:ARCH-01|OBS.99|@m.BUNDLE.B1|@agent.ARCH-01|^root:C2+^mode:strict+^order:topo+^claim:C1+^claim:C2+^dep:C2>C1|NOW
+```
+
+| Key | Required | Description |
+| --- | --- | --- |
+| `^root` | Yes | Root claim |
+| `^mode` | Yes | `strict` (1:1) or `loose` (may fuse) |
+| `^order` | Yes | `topo` (dependency) or `time` (timestamp) |
+| `^claim` | Yes | Repeatable claim IDs |
+| `^dep` | No | `child>parent` |
+| `^c` | No | Confidence vector: `^c:C1.obs=95+^c:C1.map=94` |
+
+## Backward Compatibility
+
+v2.1 agents parse manifests as ordinary OBS packets about `@m.*` entities. Unknown keys ignored. Normal packets unaffected.

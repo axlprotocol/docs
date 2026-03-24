@@ -1,0 +1,48 @@
+---
+title: "CLI Reference"
+description: "Command-line tools for AXL compression, parsing, and validation."
+---
+
+## Commands
+
+```bash
+axl compress <file>          # Compress English to AXL
+axl decompress <file>        # Expand AXL to English
+axl parse <packet>           # Parse a single packet
+axl validate <file>          # Validate all packets in a file
+axl stats <file>             # Show compression stats
+axl convert <file> --to openai   # Convert to OpenAI function format
+axl convert <file> --to claude   # Convert to Claude tool format
+axl convert <file> --to langgraph # Convert to LangGraph state
+```
+
+## Examples
+
+```bash
+# Compress a research paper
+axl compress paper.txt > paper.axl
+# Output: 42 packets, 3,200 chars (from 33,000 chars), ratio 10.31x
+
+# Validate a bus log
+axl validate bus.axl
+# Output: 605 packets, 600 valid, 5 malformed, 99.2% validity
+
+# Parse inline
+axl parse "ID:WHL-01|PRD.68|$BTC|down 69800|<-!whale+$ETF|1H"
+# Output:
+#   ID: WHL-01
+#   Operation: PRD (predict)
+#   Confidence: 68%
+#   Subject: $BTC (financial)
+#   Direction: down 69800
+#   Evidence: !whale + $ETF
+#   Temporal: 1H
+
+# Compression stats
+axl stats experiment.axl
+# Output:
+#   Packets: 127
+#   Operations: OBS:45 INF:32 CON:12 MRG:8 SEK:5 YLD:3 PRD:22
+#   Avg confidence: 74.3%
+#   Total chars: 8,420
+```

@@ -1,0 +1,64 @@
+---
+title: "Python Library"
+description: "axl-core: compress, decompress, parse, validate, emit."
+---
+
+## Installation
+
+```bash
+pip install axl-core
+```
+
+## Modules
+
+| Module | Description |
+| --- | --- |
+| `axl.compress` | English to AXL compression |
+| `axl.decompress` | AXL to English expansion |
+| `axl.parse` | Packet parser returning typed fields |
+| `axl.validate` | Packet validation against grammar |
+| `axl.emit` | Programmatic packet construction |
+| `axl.rosetta` | Rosetta loader and prompt builder |
+| `axl.convert` | Translators for OpenAI, Claude, LangGraph formats |
+
+## Packet Object
+
+```python
+from axl import parse
+
+pkt = parse("ID:WHL-01|OBS.95|!whale_move|@whale.CW2024|^2400BTC=>exchange|NOW")
+
+pkt.id          # "WHL-01"
+pkt.operation   # "OBS"
+pkt.confidence  # 0.95
+pkt.subject     # "!whale_move"
+pkt.relation    # ""
+pkt.evidence    # "@whale.CW2024"
+pkt.temporal    # "NOW"
+pkt.raw         # full original string
+```
+
+## Emit Packets
+
+```python
+from axl import emit
+
+pkt = emit(
+    id="ANALYST-01",
+    operation="INF",
+    confidence=82,
+    subject="#CA125",
+    evidence="<-!scan+#8.1x_baseline",
+    temporal="1W"
+)
+print(pkt)  # ID:ANALYST-01|INF.82|#CA125|<-!scan+#8.1x_baseline|1W
+```
+
+## Load Rosetta
+
+```python
+from axl.rosetta import load_rosetta, build_agent_prompt
+
+rosetta = load_rosetta()  # Loads from disk or fetches from URL
+prompt = build_agent_prompt(rosetta, "Dr.Chen", "Oncologist", seed_text="...")
+```

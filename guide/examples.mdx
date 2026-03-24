@@ -1,0 +1,44 @@
+---
+title: "Examples"
+description: "Real AXL packets across finance, medicine, military, science, and legal domains."
+---
+
+## Finance — BTC Trading
+
+```
+ID:WHL-01|OBS.95|!whale_move|@whale.CW2024|^2400BTC=>exchange|NOW
+ID:MED-03|INF.80|$BTC|<-!whale_move+$ETF_outflow_230M|down sell_pressure|1H
+ID:CTR-01|CON.71|$BTC|RE:MED-03|~oversold+$funding_neg=>bounce|up|1H
+ID:MED-03|YLD.60|$BTC|from:BEAR=>NEUTRAL|RE:OCH-01_data|NOW
+ID:WHL-01|PRD.68|$BTC|down 69800|<-!whale+$ETF_net+~weak_support|1H
+```
+
+## Medicine — Tumor Diagnosis
+
+```
+ID:RAD-01|OBS.92|!scan_result|@patient.7291|#mass_3.2cm_left_ovary|NOW
+ID:ONC-01|INF.75|#CA125|<-!scan+#CA125_4.2x_baseline|~malignancy_probable|1W
+ID:PATH-01|CON.65|#diagnosis|RE:ONC-01|#endometriosis_consistent+#age_factor|~benign_possible|1W
+ID:ONC-01|YLD.55|#diagnosis|from:~malignant=>~uncertain|RE:PATH-01_differential|NOW
+ID:ONC-01|PRD.60|@patient.7291|~malignancy_60%|<-#CA125+!scan+#age|1W
+```
+
+## Military — Invasion Assessment
+
+```
+ID:SAT-01|OBS.88|!troop_movement|@unit.3rd_army|^northern_border+^150km|NOW
+ID:SIGINT-01|INF.72|!invasion_prep|<-!troop_movement+!supply_chain|~hostile_intent|1D
+ID:HUMINT-01|CON.60|!invasion_prep|RE:SIGINT-01|~exercise_pattern_2024|~exercise|1D
+ID:SIGINT-01|YLD.55|!invasion_prep|from:~likely=>~uncertain|RE:HUMINT-01_diplomatic|NOW
+ID:ASSESS-01|PRD.34|!invasion|@country.TARGET|^probability_34%|<-!troop+!supply-!diplomatic|72H
+```
+
+## Science — Peer Review
+
+```
+ID:AUTH-01|OBS.85|#experiment_result|#effect_size_0.42|#p_value_0.03|#n_240|NOW
+ID:REV-02|CON.75|#methodology|RE:AUTH-01|#confound_uncontrolled+#selection_bias|~replication_needed|1W
+ID:AUTH-01|YLD.65|#methodology|from:~robust=>~limited|RE:REV-02_confound_point|NOW
+```
+
+Every domain uses the same 7 operations and 6 tags. The verbs are universal. The nouns change.

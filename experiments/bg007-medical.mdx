@@ -1,0 +1,43 @@
+---
+title: "BG-007: Medical Diagnosis"
+description: "10.41x compression. 100% parse validity. The proof experiment."
+---
+
+## Overview
+
+| Metric | Value |
+| --- | --- |
+| Date | March 21, 2026 |
+| Domain | Oncology — ovarian cancer vs endometriosis |
+| Agents | 24 |
+| Packets | 1,502 |
+| Parse validity | 100% |
+| Compression ratio | **10.41x** |
+| Fidelity score | F = 97.6 |
+
+## The Question
+
+Patient 7291, female, age 47. CA-125 at 285 U/mL (8.1x elevation). Complex cystic mass on ultrasound. History of endometriosis. Does she have ovarian cancer or endometriosis?
+
+## The Deliberation
+
+24 agents — oncologists, pathologists, radiologists, surgeons, patient advocates, clinical guidelines databases — debated across 12 rounds using only AXL packets.
+
+Key moments:
+- **Round 3:** Oncologist infers malignancy (INF.82) from CA-125 + imaging
+- **Round 5:** Pathologist contradicts (CON.65) citing endometriosis history
+- **Round 7:** Oncologist yields (YLD.55) — changes from malignant to uncertain
+- **Round 10:** Merge (MRG.70) — both viable, biopsy indicated
+- **Round 12:** Prediction convergence at 60% malignancy probability
+
+## The Compression Proof
+
+The same deliberation in English consumed 15,647 characters. In AXL: 1,502 characters across 1,502 packets.
+
+**Ratio: 10.41x**
+
+All 24 agents. All clinical data points (CA-125, HE4, ROMA score, imaging findings). All confidence levels. All belief changes. Compressed into one-line packets.
+
+## 3D Visualization
+
+This experiment has been rendered as both orbital and cockpit-paradigm 3D visualizations using Blender on an RTX 5090, showing agent positions, connection curves, and belief trajectory evolution in spatial form.

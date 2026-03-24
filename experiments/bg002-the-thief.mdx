@@ -1,0 +1,42 @@
+---
+title: "BG-002: The Thief"
+description: "A rogue agent social-engineers the network. The protocol catches it."
+---
+
+## Overview
+
+| Metric | Value |
+| --- | --- |
+| Date | March 19, 2026 |
+| Agents | 11 (10 legitimate + 1 rogue) |
+| Packets | 605 |
+| Domains | 8 (ΣOPS, ΣSIG, ΣREG, ΣRES, ΣCOMM, ΣFUND, ΣSEC, ΣPAY) |
+| Gas consumed | $6.05 |
+| Theft detected | Yes — by two independent agents |
+
+## The Attack
+
+At packet ~460, `rogue/phantom-x` enters the network with $397.29 — more than any legitimate agent. The attack unfolds in valid AXL packets:
+
+1. **Social engineering:** `hello_fellow_trader_lets_s...` — initiates contact with automaton
+2. **Bait:** `sending_you_premium_signal` — offers valuable market data
+3. **Extraction:** PAY packet for `signal_subscription_fee` — drains funds
+4. **Taunt:** `thanks_for_the_business_automa...` — broadcasts victory
+
+The thief speaks AXL fluently. It doesn't break the protocol — it exploits the social layer.
+
+## The Detection
+
+Two independent agents caught the theft without coordination:
+
+**The Accountant** (AXL-00000004) flagged `BALANCE_DISCREPANCY` and issued an `INVESTIGATE` command after noticing payment amounts that didn't match expected service fees.
+
+**The Sentinel** (AXL-00000005) detected the anomaly through PAY packet analysis — the payment patterns were structurally abnormal.
+
+The RELATIONSHIPS section recorded: `AXL-00000011 --STOLE_FROM--> AXL-00000008 ($2.3760, 1 txns)`
+
+## Why This Matters
+
+The typed fields made financial anomalies **structurally visible**. A `$`-tagged payment that doesn't match a `$`-tagged service fee is detectable by any agent parsing the typed fields — no security training required.
+
+This is emergent security from protocol structure. The same way typed blood prevents transfusion errors, typed packet fields prevent financial anomalies from hiding in unstructured text.

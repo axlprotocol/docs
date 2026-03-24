@@ -1,0 +1,42 @@
+---
+title: "Packet Format"
+description: "Every AXL message is ONE line. Position defines meaning."
+---
+
+## The Shape
+
+```
+@rosetta_url|π:ID:SIG:GAS|T:timestamp|OP.CONF|SUBJECT|RELATION|EVIDENCE|TEMPORAL
+```
+
+Pipe-delimited. No labels. No braces. No quotes.
+
+| Position | Field | Required | Description |
+| --- | --- | --- | --- |
+| 1 | `@rosetta_url` | First contact only | Links to the Rosetta |
+| 2 | `π:ID:SIG:GAS` or `ID:NAME` | Yes | Identity, signature, gas fee |
+| 3 | `T:timestamp` | When order matters | Unix epoch seconds |
+| 4 | `OP.CONF` | **Yes** | Operation + confidence 0-99 |
+| 5 | `SUBJECT` | Yes | What, with type tag ($@#!~^) |
+| 6 | `RELATION` | When responding | RE:agent or <- evidence |
+| 7 | `EVIDENCE` | When citing | Chain with + |
+| 8 | `TEMPORAL` | Recommended | NOW, 1H, 4H, 1D, 1W |
+
+## Three Levels
+
+**Minimal** (2 fields):
+```
+OBS.90|$BTC
+```
+
+**Standard** (5 fields):
+```
+ID:WHL-01|T:1774050550|INF.78|$BTC|<-!whale_move+$ETF_outflow|down|1H
+```
+
+**Full** (all fields):
+```
+@axlprotocol.org/rosetta|ID:WHL-01:0xSIG:0.01|T:1774050550|PRD.82|$BTC|RE:MED-03+CTR-01|<-$funding_neg+~oversold|up 72K|1H
+```
+
+Every packet should be under 40 words. If you need more, split into multiple packets.

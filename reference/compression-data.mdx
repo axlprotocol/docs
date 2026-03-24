@@ -1,0 +1,42 @@
+---
+title: "Compression Data"
+description: "Measured compression ratios across experiments and domains."
+---
+
+## Headline Numbers
+
+| Experiment | Domain | English Chars | AXL Chars | Ratio | Packets |
+| --- | --- | --- | --- | --- | --- |
+| BG-007 | Medical | 15,647 | 1,502 | **10.41x** | 1,502 |
+| BG-006 | Comparison | 33,164 tokens | 82,727 tokens* | **8.4x density** | 4,033 |
+| BG-009 | Military | ~18,000 | ~2,100 | ~8.6x | 1,800+ |
+
+*BG-006 measures density (interactions per token) not char compression.
+
+## What Gets Preserved
+
+At 10x compression, AXL preserves:
+- All named entities (patients, agents, countries, organizations)
+- All numeric values (CA-125 levels, troop counts, BTC prices, p-values)
+- All confidence levels (per-agent, per-claim)
+- All causal relationships (evidence chains, dependency graphs)
+- All temporal scopes (NOW, 1H, 1D, 1W)
+- All cognitive operations (who observed, inferred, contradicted, predicted)
+
+## What Gets Lost
+
+- Rhetorical style and prose cadence
+- Hedging language ("it appears that", "one might argue")
+- Redundant restatements
+- Filler phrases
+- Paragraph structure
+
+## Fidelity Measurement
+
+The decompression fidelity score measures round-trip quality:
+
+```
+F = 100 x (0.35*Ssem + 0.20*Snum + 0.15*Srel + 0.10*Stemp + 0.10*Sonto + 0.10*Sconf)
+```
+
+BG-007 achieved F = 97.6 — doctrine-grade round-tripping where all semantic content survives compression and decompression.

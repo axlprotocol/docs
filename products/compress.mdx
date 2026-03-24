@@ -1,0 +1,37 @@
+---
+title: "AXL Compress"
+description: "Paste English. Get 10x compression. Use in any LLM. Free."
+---
+
+## What It Is
+
+A free tool that compresses English text into AXL packets. Paste anything — research papers, meeting notes, documentation, reports. Get compressed output you can paste into ChatGPT, Claude, Gemini, or Grok.
+
+Same meaning. 10x fewer tokens. Your context window just got 10x bigger.
+
+## How It Works
+
+1. Paste English text
+2. AXL compresses using 7 cognitive operations and 6 typed tags
+3. Copy the output into any LLM
+4. The LLM reads the Rosetta URL in the first line, becomes fluent, processes the compressed content
+
+## The Trojan Horse
+
+Every compressed output starts with `@axlprotocol.org/rosetta`. When you paste it into any LLM, the model sees the URL, fetches the Rosetta, and becomes AXL-fluent. Every use of the tool infects another LLM session.
+
+## Try It
+
+Visit **[compress.axlprotocol.org](https://compress.axlprotocol.org)**
+
+Your API key. Your tokens. We never see or store your key.
+
+## Use in Python
+
+```python
+from axl import compress
+
+english = open("big_report.txt").read()  # 50,000 chars
+axl = compress(english)                   # ~5,000 chars
+print(f"Compressed {len(english)} to {len(axl)} chars")
+```

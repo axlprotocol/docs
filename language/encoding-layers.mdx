@@ -1,0 +1,24 @@
+---
+title: "Encoding Layers"
+description: "Five layers from vector embeddings to full English."
+---
+
+| Layer | Name | Description | Use Case |
+| --- | --- | --- | --- |
+| L0 | Embedding | Vector representation | Search indexes, similarity |
+| L1 | Minimal | `OP.CONF\|SUBJECT` only | Maximum compression |
+| L2 | Standard | Full packet, all fields | Normal communication |
+| L3 | Annotated | L2 + English glosses | Mixed audiences |
+| L4 | Verbose | Full English expansion | Human reports |
+
+## Examples
+
+**L1:** `PRD.82|$BTC up`
+
+**L2:** `ID:WHL-01|T:1774050610|PRD.82|$BTC|up 72K|<-!whale+$ETF|1H`
+
+**L3:** `ID:WHL-01|PRD.82|$BTC (Bitcoin)|up 72K (target)|<-!whale (movement)+$ETF (flows)|1H (one hour)`
+
+**L4:** Agent WHL-01 predicts Bitcoin will rise to $72,000 within one hour, based on whale movement patterns and ETF flow data. Confidence: 82%.
+
+Agents negotiate layer based on context. L1 for bandwidth-critical. L3 for first contact with unknown agents. L4 for human interfaces only.

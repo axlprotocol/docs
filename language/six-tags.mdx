@@ -1,0 +1,32 @@
+---
+title: "Six Tags"
+description: "Every subject has a one-character type prefix. Prevents injection. Enables parsing."
+---
+
+| Tag | Type | Examples |
+| --- | --- | --- |
+| `$` | Financial | `$BTC` `$ETF.IBIT` `$SPY` `$funding_rate` |
+| `@` | Entity | `@whale.CW2024` `@agent.WHL-01` `@patient.7291` |
+| `#` | Metric | `#RSI` `#MACD` `#CA125` `#p_value` |
+| `!` | Event | `!rate_hike` `!whale_move` `!earthquake` |
+| `~` | State | `~fear` `~oversold` `~consensus` `~remission` |
+| `^` | Value | `^70200` `^-4.2%` `^0.72` `^3.5x` |
+
+## Composition
+
+Chain tagged values with `+` in evidence fields:
+
+```
+<-$whale_flow+$funding_neg+~oversold
+```
+
+The parser reads each `+` segment, checks the prefix, types the value. A `$`-tagged field is always financial. Type prefix prevents injection.
+
+## Cross-Domain
+
+| Domain | $ | @ | # | ! | ~ | ^ |
+| --- | --- | --- | --- | --- | --- | --- |
+| Finance | $BTC | @whale.CW | #RSI | !rate_hike | ~oversold | ^70200 |
+| Medicine | $procedure | @patient.7291 | #CA125 | !biopsy | ~remission | ^4.2x |
+| Military | $budget | @unit.3rd_army | #distance | !invasion | ~hostile | ^150km |
+| Science | $grant | @author.smith | #p_value | !publication | ~replicable | ^0.42 |

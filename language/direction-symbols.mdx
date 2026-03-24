@@ -1,0 +1,27 @@
+---
+title: "Direction Symbols"
+description: "Two profiles: Legacy (Unicode) and ASCII. Both parse identically."
+---
+
+| Legacy | ASCII | Meaning |
+| --- | --- | --- |
+| `π:` | `ID:` | Identity prefix |
+| `←` | `<-` | Derived from (evidence pointer) |
+| `→` | `=>` | Transition / becomes |
+| `↑` | `up` | Increasing / bullish / rising |
+| `↓` | `down` | Decreasing / bearish / falling |
+| *(none)* | `EQ` | Sideways / stable / neutral |
+
+<Info>In v2.1, → served double duty as "sideways" and "transition." v2.2 splits this: EQ = stable, => = transition.</Info>
+
+**Legacy** (GPT-optimized):
+```
+π:MED-03|YLD.60|$BTC|from:BEAR→NEUTRAL|RE:OCH-01|NOW
+```
+
+**ASCII** (universal):
+```
+ID:MED-03|YLD.60|$BTC|from:BEAR=>NEUTRAL|RE:OCH-01|NOW
+```
+
+A v2.2 parser MUST accept both forms. Both produce identical parse results.

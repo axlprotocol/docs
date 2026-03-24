@@ -1,0 +1,39 @@
+---
+title: "Tokenizer Audit"
+description: "Cross-family tokenizer analysis for all AXL symbols."
+---
+
+## Methodology
+
+AXL v2.1 validated its alphabet against cl100k_base (OpenAI). v2.2 extends the audit across five tokenizer families using public documentation, NFKC normalization testing, and inference from model cards.
+
+Sources: OpenAI tiktoken repo, Google Gemma 3 blog (confirms SentencePiece for Gemini), Meta Llama docs (SentencePiece with BOS token), Mistral docs (V3 Tekken = tiktoken-based), xAI documentation (variable tokenizers across Grok versions), Anthropic docs (token counting documented, tokenizer undisclosed).
+
+## Audit Table
+
+| Symbol | Role | cl100k (GPT) | Claude | SentencePiece (Llama/Gemini) | Tekken (Mistral V3) | Grok |
+| --- | --- | --- | --- | --- | --- | --- |
+| `\|` | field delimiter | 1 token | likely 1 | likely 1 | likely 1 | likely 1 |
+| `:` | subfield | 1 token | likely 1 | likely 1 | likely 1 | likely 1 |
+| `.` | op separator | 1 token | likely 1 | likely 1 | likely 1 | likely 1 |
+| `+` | evidence chain | 1 token | likely 1 | likely 1 | likely 1 | likely 1 |
+| `$ @ # !` | tags | 1 token each | likely 1 | likely 1 | likely 1 | likely 1 |
+| `~ ^` | tags | 1 token each | likely 1 | 1-2 tokens | likely 1 | unknown |
+| `OBS INF` etc | operations | 1 token each | likely 1-2 | likely 1-3 | likely 1-2 | unknown |
+| `RE:` | relation | stable | likely 1-2 | likely 1-3 | likely 1-2 | unknown |
+| `π` | identity | 1 token | **unsafe** | **unsafe** | **unsafe** | **unsafe** |
+| `← → ↑ ↓` | direction | 1 token each | **unsafe** | **unsafe** | **unsafe** | **unsafe** |
+| `ID:` | ascii identity | 1-2 tokens | safe | safe | safe | safe |
+| `<- =>` | ascii direction | 1-2 tokens | safe | safe | safe | safe |
+| `up down EQ` | ascii direction | 1 token each | safe | safe | safe | safe |
+
+## NFKC Normalization
+
+SentencePiece applies NFKC normalization. Key finding:
+- `µ` (micro sign, U+00B5) normalizes to `μ` (Greek mu, U+03BC) — **breaks identity**
+- `π ← → ↑ ↓` survive NFKC — safe at normalization level, but may still multi-tokenize
+- All ASCII symbols survive NFKC unchanged
+
+## Conclusion
+
+The universal-safe core is ASCII punctuation plus typed prefixes. Tokenizer neutrality is framed as **orthographic invariance**, not identical token counts. v2.2 ASCII mode guarantees parser correctness everywhere. Compression efficiency is profile-relative.

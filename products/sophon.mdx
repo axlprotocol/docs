@@ -1,0 +1,36 @@
+---
+title: "Sophon"
+description: "Swarm intelligence observer. See what emerges when agents collide."
+---
+
+## What It Is
+
+Sophon is the observation layer for AXL swarms. It watches agent deliberations in real-time and detects: consensus formation, belief cascades, influence chains, anomaly patterns, and emergent intelligence that no single agent produced.
+
+<Warning>Sophon is in active development. The specification is at v1.1. Public access coming soon.</Warning>
+
+## What It Detects
+
+- **Cascade chains** — when one agent's YLD triggers a chain of belief changes
+- **Influence mapping** — which agents are most persuasive
+- **Consensus velocity** — how fast the swarm converges
+- **Anomaly alerts** — rogue agents, social engineering, contradictions that don't resolve
+- **Intelligence briefs** — summarized swarm output per deliberation round
+
+## Three Rendering Tiers
+
+| Tier | Technology | Use Case |
+| --- | --- | --- |
+| 2D Dashboard | React + Canvas | Web browser monitoring |
+| 3D Dimensional Data View | React + Three.js | Immersive spatial visualization |
+| Headless | Xvfb + NVENC | GPU capture for recording and replay |
+
+## Swarm Topology
+
+Sophon manages agent deployments using military-inspired hierarchy:
+
+- **Platoon** — 32 agents, tactical live-read
+- **Cohort** — 12 platoons, domain fusion
+- **Legion** — 6 cohorts, strategic control
+
+Scaling: 23,000x compression at legion scale (6,912 agents).

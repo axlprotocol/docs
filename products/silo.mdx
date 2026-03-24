@@ -1,0 +1,50 @@
+---
+title: "AXL Silo"
+description: "The particle accelerator for LLMs. Connect your models. Feed anything. Get 10x more out."
+---
+
+## What It Is
+
+A contained workspace where multiple LLMs from different providers communicate exclusively through AXL Protocol. You bring your API keys. The Silo provides the language.
+
+```
+         ┌─────────────────────────┐
+         │    HUMAN OPERATOR       │
+         │  (sees decoded English) │
+         └────────┬────────────────┘
+                  │
+         ┌────────▼────────────────┐
+         │     AXL MESSAGE BUS     │
+         │  Every message is AXL.  │
+         └──┬────┬────┬────┬───────┘
+            │    │    │    │
+         ┌──▼┐┌──▼┐┌──▼┐┌──▼──┐
+         │GPT││CLD││GEM││LLMA │
+         └───┘└───┘└───┘└─────┘
+```
+
+## The CERN Metaphor
+
+CERN doesn't create particles. It accelerates particles that already exist, smashes them together, and detects what emerges.
+
+The Silo doesn't create LLMs. It puts them in a ring, compresses their communication 10x, collides their reasoning, and detects the emergent intelligence no single model could produce.
+
+## Quick Start
+
+```bash
+git clone https://github.com/axlprotocol/axl-silo.git
+cd axl-silo
+pip install -r requirements.txt
+python run.py --port 7000
+```
+
+Open `http://localhost:7000`. Configure agents from mixed providers. Pick a seed or paste anything. Hit ENGAGE.
+
+## Features
+
+- **Multi-provider by default** — GPT + Claude + Gemini + Llama in the same ring
+- **Bring your own keys** — your tokens, your models, we provide the language
+- **Real-time bus** — WebSocket feed of every AXL packet with decoded English
+- **Academic reports** — click REPORT for a full deliberation analysis with belief trajectories, influence chains, and consensus scoring
+- **Queue server** — per-provider rate limiting, retry, cost tracking
+- **No framework** — no LangChain, no CrewAI. The framework IS the Rosetta
