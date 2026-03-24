@@ -105,5 +105,5 @@
     }
   },
   "feedback": { "thumbsRating": true, "suggestEdit": true },
-  "search": { "prompt": "Search AXL Protocol docs..." }
+  "search": { "prompt": "Search AXL docs..." }
 }
