@@ -27,15 +27,15 @@
           },
           {
             "group": "The Language",
-            "pages": ["language/packet-format", "language/seven-operations", "language/six-tags", "language/direction-symbols", "language/encoding-layers", "language/tokenizer-profiles"]
+            "pages": ["language/packet-format", "language/seven-operations", "language/six-tags", "language/direction-symbols", "language/encoding-layers", "language/tokenizer-profiles", "language/json-lowering", "language/loss-contracts"]
           },
           {
             "group": "Rosetta",
-            "pages": ["rosetta/overview", "rosetta/v22-preamble", "rosetta/canonical-decompression", "rosetta/full-text", "rosetta/changelog"]
+            "pages": ["rosetta/overview", "rosetta/v3-kernel", "rosetta/canonical-decompression", "rosetta/decompression", "rosetta/genesis-tracking", "rosetta/full-text", "rosetta/changelog"]
           },
           {
             "group": "Products",
-            "pages": ["products/silo", "products/compress", "products/sophon"]
+            "pages": ["products/silo", "products/compress", "products/sophon", "products/bridge", "products/agent-economy"]
           }
         ]
       },
@@ -75,8 +75,8 @@
           "icon": "github"
         },
         {
-          "anchor": "Rosetta (raw)",
-          "href": "https://axlprotocol.org/rosetta",
+          "anchor": "v3 Kernel",
+          "href": "https://axlprotocol.org/v3",
           "icon": "scroll"
         },
         {
@@ -90,7 +90,7 @@
   "navbar": {
     "links": [
       { "label": "Protocol", "href": "https://axlprotocol.org" },
-      { "label": "Rosetta", "href": "https://axlprotocol.org/rosetta" }
+      { "label": "v3 Kernel", "href": "https://axlprotocol.org/v3" }
     ],
     "primary": {
       "type": "button",

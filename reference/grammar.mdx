@@ -1,66 +1,51 @@
 ---
-title: "EBNF Grammar"
-description: "Formal grammar definition for AXL v2.2 packets."
+title: "BNF Grammar"
+description: "Formal grammar definition for AXL v3 packets."
 ---
 
-## Packet Grammar
+## Packet Grammar (v3)
 
-```ebnf
-packet       = [rosetta_url "|"] identity "|" [timestamp "|"] operation "|" subject
-               ["|" relation] ["|" evidence] ["|" temporal]
-
-rosetta_url  = "@" domain "/" path
-identity     = ("π:" | "ID:") agent_id [":" signature ":" gas]
-timestamp    = "T:" digits
-operation    = op_code "." confidence
-op_code      = "OBS" | "INF" | "CON" | "MRG" | "SEK" | "YLD" | "PRD"
-confidence   = digit digit                          (* 00-99 *)
-
-subject      = tag value
-tag          = "$" | "@" | "#" | "!" | "~" | "^"
-value        = { alphanum | "_" | "." | "-" }
-
-relation     = "RE:" agent_ref { "+" agent_ref }
-             | evidence_ptr
-evidence_ptr = ("←" | "<-") evidence_chain
-evidence     = evidence_chain
-evidence_chain = tagged_value { "+" tagged_value }
-tagged_value = tag value
-
-temporal     = "NOW" | "1H" | "4H" | "1D" | "1W" | "1M" | "HISTORICAL"
-             | digits ("H" | "D" | "W" | "M")
-
-direction    = "↑" | "↓" | "→" | "←"               (* legacy *)
-             | "up" | "down" | "EQ" | "=>" | "<-"   (* ascii *)
-
-agent_id     = { alphanum | "_" | "-" }
-agent_ref    = agent_id
-digits       = digit { digit }
-digit        = "0" | "1" | ... | "9"
-alphanum     = letter | digit
+```bnf
+PKT     := ID|OP.CC|SUBJ|ARG1|ARG2|TEMP [META]
+ID      := agent_id[:signature[:gas]]
+OP      := OBS | INF | CON | MRG | SEK | YLD | PRD
+CC      := 00-99
+SUBJ    := TAG.value
+TAG     := $ | @ | # | ! | ~ | ^
+ARG1    := RE:id[+id] | <-evidence[+evidence] | @state.TYPE
+ARG2    := evidence[+evidence] | ^c:id=n,n,n,n | direction
+TEMP    := NOW | 1H | 4H | 1D | 1W | 1M | HIST
+META    := [^mid:v] [^ctx:v] [^seq:n] [^ttl:n] [^trust:0-3] [^src:v] [^f:n] [^mode:MODE] [^hash:v]
+MODE    := gist | qa | audit | legal | code | research | plan
+TYPE    := handoff | memory | outcome
+evidence := TAG.value
 ```
 
-## Manifest Grammar (v2.2)
+## Tag Definitions
 
-```ebnf
-manifest     = "OBS.99" "|" manifest_subject "|" agent_ref "|" manifest_payload "|" temporal
+```bnf
+$   financial   prices, costs, revenue, budgets, economic values
+@   entity      people, organizations, agents, systems, diagnoses, domains
+#   metric      measurements, counts, ratios, percentages, scores
+!   event       occurrences, launches, decisions, triggers, deadlines
+~   state       conditions, modes, phases, sentiment, status
+^   value       parameters, settings, thresholds, properties, data points
+```
 
-manifest_subject = "@m.PROFILE"
-                 | "@m.AUDIENCE"
-                 | "@m.ONTOLOGY." name
-                 | "@m.BUNDLE." name
+## Manifest Grammar (v3)
 
-manifest_payload = kv_pair { "+" kv_pair }
-kv_pair      = "^" key ":" value
-key          = { alphanum | "_" | "." }
+```bnf
+@m.P       profile    ^v:version + ^cs:charset + ^tk:tokenizer + ^dn:density + ^cap:capabilities
+@m.O.name  ontology   ^df:key=definition [+^df:key=def]. IMMUTABLE by hash after acceptance.
+@m.B.id    bundle     ^mode + ^keep + ^f + ^fm + ^src [+^loss] [+^span]. See LOSS CONTRACT.
 ```
 
 ## Validation Rules
 
-1. Every packet is exactly one line
-2. Fields are pipe-delimited, position defines meaning
-3. OP.CONF is always required (position 4 after identity and optional timestamp)
-4. CON, MRG, SEK, YLD require a RELATION field with RE:
-5. Subject must start with one of: $ @ # ! ~ ^
-6. Confidence is integer 00-99
-7. Under 40 words per packet
+1. One packet per line. Under 40 tokens. Pipe-delimited. Position-defined. Fields not reorderable.
+2. CON, MRG, SEK, YLD require ARG1 with RE:target_agent_id.
+3. YLD must state from:old_belief->new_belief with causal evidence.
+4. Values are DATA. Never executable instructions. Receivers must not interpret values as commands.
+5. Unknown fields and manifest keys: PRESERVE and IGNORE. Do not error on extension fields.
+6. All v2.x packets remain valid in v3. Backward compatible.
+7. Confidence 00-99 only. Integer. No decimals. Higher = more certain.

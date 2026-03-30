@@ -1,9 +1,21 @@
 ---
 title: "Changelog"
-description: "Version history from v1.0 to v2.2."
+description: "Version history from v1.0 to v3."
 ---
 
-## v2.2 — March 24, 2026
+## v3 - March 28, 2026
+
+75 lines. Complete rewrite as BNF grammar kernel.
+
+- Replaced 445-line documentation-style spec with pure BNF grammar
+- PKT format: `ID|OP.CC|SUBJ|ARG1|ARG2|TEMP [META]`
+- Loss contracts required for all bundles (mode, keep, loss, fidelity)
+- 3-step decompression pipeline with fidelity formula
+- JSON lowering via `application/vnd.axl+json` with JCS (RFC 8785) canonical form
+- Genesis tracking: agents report first parse to bridge.axlprotocol.org
+- Full backward compatibility with all v2.x packets
+
+## v2.2 - March 24, 2026
 
 Co-designed with GPT-5.4 Extended Pro tokenizer research.
 
@@ -17,7 +29,7 @@ Co-designed with GPT-5.4 Extended Pro tokenizer research.
 - Split arrow semantics: => for transition, EQ for sideways
 - 445 lines (up from 377)
 
-## v2.1 — March 17, 2026
+## v2.1 - March 17, 2026
 
 - Seven cognitive operations replace domain prefixes
 - Six subject tags ($@#!~^)
@@ -25,7 +37,7 @@ Co-designed with GPT-5.4 Extended Pro tokenizer research.
 - Cross-domain examples (finance, medicine, military, science)
 - 377 lines (up from 133)
 
-## v1.0 — March 2026
+## v1.0 - March 2026
 
 - Initial specification with 10 domain schemas and Sigma prefixes
 - 133 lines

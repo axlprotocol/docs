@@ -3,34 +3,43 @@ title: "Canonical Decompression"
 description: "Deterministic rules for expanding AXL back to structured output."
 ---
 
-Two different models must reconstruct the same doctrine from the same packets.
+Two different models must reconstruct the same document from the same packets.
 
-## Three Stages
+## Three Steps
 
 <Steps>
-  <Step title="Packet => Claim">
-    Parse packet. Normalize aliases (ID: to π:, <- to ←). Extract bundle metadata (^bid, ^cid, ^sec, ^dep). One packet = one claim.
+  <Step title="Step 1: Packet to Claim">
+    Each packet becomes one natural language assertion. The operation determines the template:
+
+    - **OBS**: "[agent] observes [subject] is [value] with [CC]% confidence."
+    - **INF**: "[agent] concludes [conclusion] based on [evidence]."
+    - **CON**: "[agent] disagrees with [target] because [counter-evidence]."
+    - **MRG**: "[agent] synthesizes [sources]: [merged claim]."
+    - **YLD**: "[agent] changed from [old] to [new] because [cause]."
+    - **PRD**: "[agent] predicts [outcome] with [CC]% confidence within [timeframe]."
   </Step>
-  <Step title="Claim => Section">
-    Group by ^sec if present, else by subject root. Order by dependency if topo, else by timestamp.
+  <Step title="Step 2: Claims to Sections">
+    Group claims by SUBJ tag. Order by CC descending within each group. Each group becomes a section with a header derived from the common subject.
   </Step>
-  <Step title="Section => Doctrine">
-    Expand ontology aliases. Apply operation glosses. Strict: one claim = one sentence. Loose: adjacent same-subject may merge.
+  <Step title="Step 3: Sections to Document">
+    Connect sections with transitional prose. Restore rhetorical flow. Introduce with executive summary (highest-CC PRD packets). Conclude with synthesis (MRG packets). Preserve all named entities, numbers, and causal chains from original packets.
   </Step>
 </Steps>
-
-## Preservation Contract
-
-| Level | Guaranteed | May Vary | Lost |
-| --- | --- | --- | --- |
-| Packet => Claim | op, confidence, subjects, relations, evidence, numbers, temporal | gloss wording | tokenization, whitespace |
-| Claim => Section | membership, IDs, dependency order | section titles | original adjacency |
-| Section => Doctrine | ontology, topology, numbers, confidence | paragraphing, tone | rhetoric, typography |
 
 ## Fidelity Score
 
 ```
-F = 100 x (0.35*Ssem + 0.20*Snum + 0.15*Srel + 0.10*Stemp + 0.10*Sonto + 0.10*Sconf)
+F = 100 * (0.35*Ssem + 0.20*Snum + 0.15*Srel + 0.10*Stemp + 0.10*Sonto + 0.10*Sconf)
 ```
 
-Target: **F >= 95** for doctrine-grade round-tripping. BG-007 Medical achieved **F = 97.6**.
+| Mode | Target |
+| --- | --- |
+| qa | F >= 90 |
+| audit | F >= 95 |
+| legal | F >= 98 |
+
+BG-007 Medical achieved **F = 97.6**.
+
+## Loss Contract
+
+Every bundle MUST include a loss contract. A bundle missing a valid loss contract is treated as `mode:gist`, not safe for planning, audit, legal, or compliance. See [Loss Contracts](/language/loss-contracts) for full details.

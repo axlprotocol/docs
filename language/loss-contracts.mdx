@@ -1,0 +1,78 @@
+---
+title: "Loss Contracts"
+description: "Declare what survived compression and what was intentionally dropped."
+---
+
+## Purpose
+
+When an agent compresses text into AXL packets, information is lost. A loss contract makes that loss explicit and auditable. Every bundle MUST include one.
+
+## Fields
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `^mode` | Yes | What this bundle is safe for |
+| `^keep` | Yes | What survived compression |
+| `^loss` | Yes | What was intentionally dropped |
+| `^f` | Yes | Fidelity score 0-100 |
+| `^fm` | Yes | Fidelity method identifier (e.g. `axl-fidelity/v1`) |
+| `^src` | Yes | Source identifier (URL, document hash, session ID) |
+| `^span` | Conditional | Source span (pages, paragraphs, timestamps). REQUIRED for modes: audit, legal, code, research. |
+
+## Mode Types
+
+| Mode | Use case | Minimum fidelity |
+| --- | --- | --- |
+| `gist` | Summary only. Quick reads. | None required |
+| `qa` | Question answering from compressed content | F >= 90 |
+| `audit` | Full trace with provenance | F >= 95 |
+| `legal` | Exact quotes preserved | F >= 98 |
+| `code` | Syntax-safe compression | F >= 95 |
+| `research` | Citations preserved | F >= 95 |
+| `plan` | Dependencies preserved | F >= 90 |
+
+## Keep Values
+
+Declare what survived: `entities`, `numbers`, `causality`, `confidence`, `temporal`, `provenance`, `quotes`, `structure`.
+
+Multiple values are joined with `+`:
+```
+^keep:entities+numbers+causality+confidence
+```
+
+## Loss Values
+
+Declare what was dropped: `rhetoric`, `formatting`, `redundancy`, `hedging`, `style`.
+
+```
+^loss:rhetoric+formatting+redundancy
+```
+
+## The Safety Rule
+
+**A bundle missing a valid loss contract MUST be treated as `mode:gist`.** It is not safe for planning, audit, legal, or compliance use.
+
+This is a hard rule, not a suggestion. Downstream agents that receive a bundle without a loss contract cannot assume any fidelity guarantees.
+
+## Example Bundle Manifest
+
+```
+ID:ARCH-01|OBS.99|@m.B.report_q1|@agent.ARCH-01|^mode:qa+^keep:entities+numbers+causality+^loss:rhetoric+formatting+^f:92+^fm:axl-fidelity/v1+^src:quarterly_report_2026Q1.pdf+^span:pages=1-47|NOW
+```
+
+## Fidelity Measurement
+
+The `^f` score is computed by the compressor via decompress-and-compare:
+
+```
+F = 100 * (0.35*Ssem + 0.20*Snum + 0.15*Srel + 0.10*Stemp + 0.10*Sonto + 0.10*Sconf)
+```
+
+| Component | Weight | Measures |
+| --- | --- | --- |
+| Ssem | 0.35 | Semantic similarity |
+| Snum | 0.20 | Numeric preservation |
+| Srel | 0.15 | Relationship preservation |
+| Stemp | 0.10 | Temporal accuracy |
+| Sonto | 0.10 | Ontology consistency |
+| Sconf | 0.10 | Confidence preservation |

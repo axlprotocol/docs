@@ -1,0 +1,76 @@
+---
+title: "JSON Lowering"
+description: "application/vnd.axl+json: the canonical JSON surface for AXL packets."
+---
+
+## The Format
+
+AXL packets have a canonical JSON representation registered under the content type `application/vnd.axl+json`. This enables AXL to travel through JSON-native systems (REST APIs, message queues, databases) without custom parsers.
+
+```json
+{
+  "v": "3",
+  "id": "X",
+  "op": "OBS",
+  "cc": 95,
+  "s": { "t": "$", "v": "BTC" },
+  "a1": null,
+  "a2": "^67420",
+  "t": "NOW",
+  "m": {}
+}
+```
+
+| JSON field | Packet field | Type |
+| --- | --- | --- |
+| `v` | version | string |
+| `id` | ID | string |
+| `op` | OP | string (one of 7 ops) |
+| `cc` | CC | integer 0-99 |
+| `s` | SUBJ | object with `t` (tag) and `v` (value) |
+| `a1` | ARG1 | string or null |
+| `a2` | ARG2 | string or null |
+| `t` | TEMP | string |
+| `m` | META | object (key-value pairs) |
+
+## Canonical Form: JCS (RFC 8785)
+
+All hashes, signatures, dedup, caching, and equality checks MUST be computed on the canonical JSON form, not the surface text of the pipe-delimited packet.
+
+AXL uses JSON Canonicalization Scheme (RFC 8785) for deterministic serialization:
+- Keys sorted lexicographically
+- No whitespace outside strings
+- Numbers in shortest form
+- No duplicate keys
+
+## Roundtrip Semantics
+
+The transformation is lossless in both directions:
+
+```
+Pipe-delimited AXL  -->  JSON lowering  -->  Pipe-delimited AXL
+```
+
+`JSON -> AXL -> JSON` preserves semantics. Field ordering in the pipe format is positional, so the mapping is deterministic.
+
+## Example
+
+Pipe-delimited:
+```
+WHL-01|OBS.95|$BTC|<-!whale_move|^2400BTC=>exchange|NOW ^src:chain_monitor
+```
+
+JSON lowered:
+```json
+{
+  "v": "3",
+  "id": "WHL-01",
+  "op": "OBS",
+  "cc": 95,
+  "s": { "t": "$", "v": "BTC" },
+  "a1": "<-!whale_move",
+  "a2": "^2400BTC=>exchange",
+  "t": "NOW",
+  "m": { "src": "chain_monitor" }
+}
+```

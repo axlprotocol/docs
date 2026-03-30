@@ -1,0 +1,65 @@
+---
+title: "Decompression Pipeline"
+description: "Reconstruct prose from AXL packets in three deterministic steps."
+---
+
+## Overview
+
+Decompression is the reverse of AXL compression. Given a set of AXL packets, reconstruct the original prose. The pipeline is deterministic: two different models given the same packets should produce semantically equivalent output.
+
+## Step 1: Packet to Claim
+
+Each packet becomes one natural language assertion. The operation type determines the sentence template:
+
+| Operation | Template |
+| --- | --- |
+| OBS | "[agent] observes [subject] is [value] with [CC]% confidence." |
+| INF | "[agent] concludes [conclusion] based on [evidence]." |
+| CON | "[agent] disagrees with [target] because [counter-evidence]." |
+| MRG | "[agent] synthesizes [sources]: [merged claim]." |
+| YLD | "[agent] changed from [old] to [new] because [cause]." |
+| PRD | "[agent] predicts [outcome] with [CC]% confidence within [timeframe]." |
+
+One packet = one claim. No merging at this step.
+
+## Step 2: Claims to Sections
+
+Group claims by SUBJ tag. All claims sharing the same subject root become one section. Within each section, order claims by CC descending (highest confidence first). Each group gets a header derived from the common subject.
+
+Example grouping:
+- All `$BTC` claims form the "Bitcoin" section
+- All `@whale.CW2024` claims form the "Whale CW2024" section
+- All `#volume` claims form the "Volume" section
+
+## Step 3: Sections to Document
+
+Connect sections with transitional prose. The document structure follows a consistent pattern:
+
+1. **Executive summary** from highest-CC PRD packets
+2. **Body sections** in order of relevance
+3. **Synthesis** from MRG packets
+
+Preserve all named entities, numbers, and causal chains from the original packets. Restore rhetorical flow that was stripped during compression.
+
+## Fidelity Formula
+
+```
+F = 100 * (0.35*Ssem + 0.20*Snum + 0.15*Srel + 0.10*Stemp + 0.10*Sonto + 0.10*Sconf)
+```
+
+| Component | Weight | What it measures |
+| --- | --- | --- |
+| Ssem | 0.35 | Semantic similarity between original and decompressed text |
+| Snum | 0.20 | Numeric value preservation |
+| Srel | 0.15 | Relationship and causal chain preservation |
+| Stemp | 0.10 | Temporal reference accuracy |
+| Sonto | 0.10 | Ontology and entity consistency |
+| Sconf | 0.10 | Confidence level preservation |
+
+## Fidelity Targets by Mode
+
+| Mode | Target | Rationale |
+| --- | --- | --- |
+| qa | F >= 90 | Answers must be accurate |
+| audit | F >= 95 | Full trace required |
+| legal | F >= 98 | Exact quotes must survive |

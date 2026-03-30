@@ -3,12 +3,12 @@ title: "Model Entry Points"
 description: "Optimized AXL configuration for GPT, Claude, Gemini, Llama, Mistral, and Grok."
 ---
 
-Different LLM families use different tokenizers. AXL v2.2 lets each model declare its optimal profile.
+Different LLM families use different tokenizers. AXL v3 lets each model declare its optimal profile.
 
 ## OpenAI (GPT-4, GPT-4o, GPT-5, o1, o3)
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:legacy+^tok:cl100k+^density:mid+^cap:onto+^cap:bundle+^cap:decomp|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:legacy+^tok:cl100k+^density:mid+^cap:onto+^cap:bundle+^cap:decomp|NOW
 ```
 
 <Info>All AXL Unicode symbols (π ← → ↑ ↓) are verified single tokens in cl100k_base. Use **legacy charset** for maximum compression.</Info>
@@ -16,7 +16,7 @@ ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:legacy+^tok:cl100k+^density:
 ## Anthropic (Claude Sonnet, Opus, Haiku)
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:anthropic+^density:mid+^cap:onto+^cap:bundle+^cap:decomp|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:ascii+^tok:anthropic+^density:mid+^cap:onto+^cap:bundle+^cap:decomp|NOW
 ```
 
 <Info>Claude's tokenizer is proprietary. Use **ASCII charset** (ID: <- => up down) for guaranteed efficiency.</Info>
@@ -24,7 +24,7 @@ ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:anthropic+^densit
 ## Google (Gemini Flash, Pro, Ultra)
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:sp_gemini+^density:mid+^cap:onto+^cap:bundle|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:ascii+^tok:sp_gemini+^density:mid+^cap:onto+^cap:bundle|NOW
 ```
 
 <Info>Gemini uses SentencePiece (confirmed via Gemma 3). Unicode arrows may split. Use **ASCII charset**.</Info>
@@ -32,7 +32,7 @@ ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:sp_gemini+^densit
 ## Meta (Llama 3, Llama 4)
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:sp_llama+^density:mid+^cap:onto|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:ascii+^tok:sp_llama+^density:mid+^cap:onto|NOW
 ```
 
 <Warning>SentencePiece NFKC normalization converts µ (micro sign) to μ (Greek mu). Avoid µ, τ, × symbols.</Warning>
@@ -40,7 +40,7 @@ ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:sp_llama+^density
 ## Mistral
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:tekken+^density:mid+^cap:onto|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:ascii+^tok:tekken+^density:mid+^cap:onto|NOW
 ```
 
 <Warning>Mistral spans multiple tokenizer families. V1/V2 used SentencePiece. V3 uses Tekken (tiktoken-based). Always use neutral or tekken profile.</Warning>
@@ -48,7 +48,7 @@ ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:tekken+^density:m
 ## xAI (Grok) / Unknown Models
 
 ```
-ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:2.2+^charset:ascii+^tok:neutral+^density:mid|NOW
+ID:SYS|OBS.99|@m.PROFILE|@agent.SYS|^v:3+^charset:ascii+^tok:neutral+^density:mid|NOW
 ```
 
 ASCII mode is universal-safe. Start there. Negotiate up after first exchange.

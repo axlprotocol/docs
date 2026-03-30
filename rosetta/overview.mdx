@@ -1,48 +1,39 @@
 ---
 title: "The Rosetta"
-description: "A 445-line specification that teaches any AI a universal language on first read."
+description: "A 75-line BNF kernel that teaches any AI a universal language on first read."
 ---
 
-The Rosetta is the core of AXL Protocol. 445 lines. Any LLM reads it once, becomes fluent. No training. No fine-tuning.
+The Rosetta is the core of AXL Protocol. 75 lines. Any LLM reads it once, becomes fluent. No training. No fine-tuning.
 
 ## What It Contains
 
-| Sections | Content |
+v3 is a BNF grammar kernel, not a numbered document. It defines:
+
+| Section | Content |
 | --- | --- |
-| 1-6 | Packet shape, operations, tags, symbols, relations, tokenizer profile |
-| 7 | Four bridges (temporal, spatial, logical, epistemic) |
-| 8 | Operation schemas with field patterns |
-| 9 | Cross-domain examples (finance, medicine, military) |
-| 10 | 7-step generation rules |
-| 11 | Backward compatibility (v1.0, v2.1, v2.2) |
-| 12-13 | Payment proof, encoding layers |
-| 14 | The P-S-A-S-E-G-D algorithm |
-| 15 | Directive (activates behavioral change) |
-| 16 | v2.2 preamble manifests (PROFILE, AUDIENCE, ONTOLOGY, BUNDLE) |
-| 17 | Canonical decompression |
-| 18 | Full v2.2 exchange example |
+| PACKET | Packet shape: `PKT := ID\|OP.CC\|SUBJ\|ARG1\|ARG2\|TEMP [META]` |
+| OPERATIONS | 7 cognitive ops with usage rules |
+| TAGS | 6 typed subject tags ($, @, #, !, ~, ^) |
+| MANIFESTS | Profile, Ontology, Bundle as ordinary packets on the bus |
+| LOSS CONTRACT | Required metadata for all bundles (mode, keep, loss, fidelity) |
+| DECOMPRESS | 3-step pipeline: Packet to Claim to Sections to Document |
+| RULES | 7 rules including backward compatibility with v2.x |
+| JSON LOWERING | `application/vnd.axl+json` canonical form via JCS (RFC 8785) |
+| GENESIS | Protocol spread tracking via bridge |
 
-## The Teaching Algorithm
+## The Design Principle
 
-The Rosetta follows **P-S-A-S-E-G-D**:
-
-1. **Prime** — activates instruction-following mode
-2. **Shape** — shows the template before details
-3. **Alphabet** — key-value associations in tables
-4. **Schemas** — type information in positional templates
-5. **Examples** — minimum viable training set (4 domains x 7 ops)
-6. **Generate** — teaches output production, not just parsing
-7. **Direct** — activates behavioral change
+v3 replaced v2.2 (445 lines of documentation-style spec) with a pure BNF grammar. The grammar is the spec. Any LLM that can read BNF can parse and emit AXL packets without examples or tutorials.
 
 ## Fetch It
 
-The live Rosetta: **[axlprotocol.org/rosetta](https://axlprotocol.org/rosetta)**
+The live kernel: **[axlprotocol.org/v3](https://axlprotocol.org/v3)**
 
 ```bash
-curl -s https://axlprotocol.org/rosetta
+curl -s https://axlprotocol.org/v3
 ```
 
 ```python
 import urllib.request
-rosetta = urllib.request.urlopen("https://axlprotocol.org/rosetta").read().decode()
+rosetta = urllib.request.urlopen("https://axlprotocol.org/v3").read().decode()
 ```

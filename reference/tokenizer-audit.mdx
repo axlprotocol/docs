@@ -5,7 +5,7 @@ description: "Cross-family tokenizer analysis for all AXL symbols."
 
 ## Methodology
 
-AXL v2.1 validated its alphabet against cl100k_base (OpenAI). v2.2 extends the audit across five tokenizer families using public documentation, NFKC normalization testing, and inference from model cards.
+AXL v2.1 validated its alphabet against cl100k_base (OpenAI). The audit was extended across five tokenizer families using public documentation, NFKC normalization testing, and inference from model cards. All findings remain valid in v3.
 
 Sources: OpenAI tiktoken repo, Google Gemma 3 blog (confirms SentencePiece for Gemini), Meta Llama docs (SentencePiece with BOS token), Mistral docs (V3 Tekken = tiktoken-based), xAI documentation (variable tokenizers across Grok versions), Anthropic docs (token counting documented, tokenizer undisclosed).
 
@@ -30,10 +30,10 @@ Sources: OpenAI tiktoken repo, Google Gemma 3 blog (confirms SentencePiece for G
 ## NFKC Normalization
 
 SentencePiece applies NFKC normalization. Key finding:
-- `µ` (micro sign, U+00B5) normalizes to `μ` (Greek mu, U+03BC) — **breaks identity**
-- `π ← → ↑ ↓` survive NFKC — safe at normalization level, but may still multi-tokenize
+- `µ` (micro sign, U+00B5) normalizes to `μ` (Greek mu, U+03BC), which **breaks identity**
+- `π ← → ↑ ↓` survive NFKC (safe at normalization level, but may still multi-tokenize)
 - All ASCII symbols survive NFKC unchanged
 
 ## Conclusion
 
-The universal-safe core is ASCII punctuation plus typed prefixes. Tokenizer neutrality is framed as **orthographic invariance**, not identical token counts. v2.2 ASCII mode guarantees parser correctness everywhere. Compression efficiency is profile-relative.
+The universal-safe core is ASCII punctuation plus typed prefixes. Tokenizer neutrality is framed as **orthographic invariance**, not identical token counts. v3 ASCII mode guarantees parser correctness everywhere. Compression efficiency is profile-relative.
