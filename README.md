@@ -41,3 +41,7 @@ Apply at [mintlify.com/oss-program](https://mintlify.com/oss-program) for free P
 - Website: [axlprotocol.org](https://axlprotocol.org)
 - Rosetta: [axlprotocol.org/rosetta](https://axlprotocol.org/rosetta)
 - GitHub: [github.com/axlprotocol](https://github.com/axlprotocol)
+
+## License
+
+Apache 2.0 - see [LICENSE](LICENSE).
