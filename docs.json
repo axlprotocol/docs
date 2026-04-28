@@ -2,6 +2,10 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "AXL Protocol",
+  "appearance": {
+    "default": "dark",
+    "strict": false
+  },
   "logo": {
     "light": "/logo/banner.png",
     "dark": "/logo/banner.png"
